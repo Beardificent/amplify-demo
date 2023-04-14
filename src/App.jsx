@@ -11,7 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import PublishIcon from "@mui/icons-material/Publish";
 import { listSongs } from "./graphql/queries";
 import { updateSong } from "./graphql/mutations";
-
+import ReactPlayer from "react-player";
 
 Amplify.configure(awsconfig);
 Storage.configure(awsconfig);
@@ -19,7 +19,7 @@ Storage.configure(awsconfig);
 function App() {
   const [songs, setSongs] = useState([]);
   const [songPlaying, setSongPlaying] = useState("");
-  const [audioURL, setAudioURL] = useState('');
+  const [audioURL, setAudioURL] = useState("");
 
   const fetchSongs = async () => {
     try {
@@ -50,25 +50,25 @@ function App() {
     }
   };
 
-  const toggleSong = async idx => {
+  const toggleSong = async (idx) => {
     if (songPlaying === idx) {
-        setSongPlaying('');
-        return;
+      setSongPlaying("");
+      return;
     }
 
     const songFilePath = songs[idx].filePath;
     try {
-        const fileAccessURL = await Storage.get(songFilePath, { expires: 60 });
-        console.log('access url', fileAccessURL);
-        setSongPlaying(idx);
-        setAudioURL(fileAccessURL);
-        return;
+      const fileAccessURL = await Storage.get(songFilePath, { expires: 60 });
+      console.log("access url", fileAccessURL);
+      setSongPlaying(idx);
+      setAudioURL(fileAccessURL);
+      return;
     } catch (error) {
-        console.error('error accessing the file from s3', error);
-        setAudioURL('');
-        setSongPlaying('');
+      console.error("error accessing the file from s3", error);
+      setAudioURL("");
+      setSongPlaying("");
     }
-};
+  };
 
   useEffect(() => {
     fetchSongs();
@@ -103,6 +103,18 @@ function App() {
                 </div>
                 <div className="songDescription">{song.description}</div>
               </div>
+              {songPlaying === idx ? (
+                <div className="ourAudioPlayer">
+                  <ReactPlayer
+                    url={audioURL}
+                    controls
+                    playing
+                    height="50px"
+                    width="100%"
+                    onPause={() => toggleSong(idx)}
+                  />
+                </div>
+              ) : null}
             </Paper>
           );
         })}

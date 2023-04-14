@@ -1,5 +1,5 @@
 import "./App.css";
-import { Amplify, API, graphqlOperation } from "aws-amplify";
+import { Amplify, API, graphqlOperation, Storage } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { Authenticator } from "@aws-amplify/ui-react";
 import awsconfig from "./aws-exports";
@@ -10,11 +10,16 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddIcon from "@mui/icons-material/Add";
 import PublishIcon from "@mui/icons-material/Publish";
 import { listSongs } from "./graphql/queries";
-import { updateSong } from './graphql/mutations';
+import { updateSong } from "./graphql/mutations";
+
 
 Amplify.configure(awsconfig);
+Storage.configure(awsconfig);
+
 function App() {
   const [songs, setSongs] = useState([]);
+  const [songPlaying, setSongPlaying] = useState("");
+  const [audioURL, setAudioURL] = useState('');
 
   const fetchSongs = async () => {
     try {
@@ -27,19 +32,41 @@ function App() {
     }
   };
 
-  const addLike = async idx => {
+  const addLike = async (idx) => {
     try {
-        const song = songs[idx];
-        song.likes = song.likes + 1;
-        delete song.createdAt;
-        delete song.updatedAt;
+      const song = songs[idx];
+      song.likes = song.likes + 1;
+      delete song.createdAt;
+      delete song.updatedAt;
 
-        const songData = await API.graphql(graphqlOperation(updateSong, { input: song }));
-        const songList = [...songs];
-        songList[idx] = songData.data.updateSong;
-        setSongs(songList);
+      const songData = await API.graphql(
+        graphqlOperation(updateSong, { input: song })
+      );
+      const songList = [...songs];
+      songList[idx] = songData.data.updateSong;
+      setSongs(songList);
     } catch (error) {
-        console.log('error on adding Like to song', error);
+      console.log("error on adding Like to song", error);
+    }
+  };
+
+  const toggleSong = async idx => {
+    if (songPlaying === idx) {
+        setSongPlaying('');
+        return;
+    }
+
+    const songFilePath = songs[idx].filePath;
+    try {
+        const fileAccessURL = await Storage.get(songFilePath, { expires: 60 });
+        console.log('access url', fileAccessURL);
+        setSongPlaying(idx);
+        setAudioURL(fileAccessURL);
+        return;
+    } catch (error) {
+        console.error('error accessing the file from s3', error);
+        setAudioURL('');
+        setSongPlaying('');
     }
 };
 
@@ -61,8 +88,8 @@ function App() {
           return (
             <Paper variant="outlined" key={`song${idx}`}>
               <div className="songCard">
-                <IconButton aria-label="play">
-                  <PlayArrowIcon />
+                <IconButton aria-label="play" onClick={() => toggleSong(idx)}>
+                  {songPlaying === idx ? <PauseIcon /> : <PlayArrowIcon />}
                 </IconButton>
                 <div>
                   <div className="songTitle">{song.title}</div>

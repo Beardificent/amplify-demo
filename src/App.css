@@ -33,14 +33,12 @@
 .songList {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .songCard {
   display: flex;
   justify-content: space-around;
   padding: 5px;
-}
-
-.songTitle {
-  font-weight: bold;
+  width: 100%;
 }

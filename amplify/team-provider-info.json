@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "testamplifydemoa3e546e1": {}
+      },
+      "api": {
+        "songApiDemo": {}
       }
     }
   }

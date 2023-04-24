@@ -1,3 +1,5 @@
+@import "@aws-amplify/ui-react/styles.css";
+
 .App {
   text-align: center;
   padding: 12px;
@@ -42,3 +44,19 @@
   padding: 5px;
   width: 100%;
 }
+/* FIXME*/
+.Button {
+  border-radius: 8px;
+  text-align: center;
+  justify-content: center;
+  background-color: yellow;
+}
+
+svg {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+

@@ -28,7 +28,8 @@ export const myTheme = {
         secondary: { value: "black" },
         focus: { value: "hsl(37, 94%, 59%)" },
       },
-      background: {},
+      background: {
+      },
       brand: {
         //Main Button State
         primary: {

@@ -6,8 +6,6 @@ import { updateSong } from "../../graphql/mutations";
 import { listSongs } from "../../graphql/queries";
 import { SongItem } from "../../containers";
 
-
-
 Storage.configure(awsconfig);
 
 const SongList = () => {
@@ -67,8 +65,9 @@ const SongList = () => {
   useEffect(() => {
     fetchSongs();
   }, []);
+
   return (
-    <div className="songList">
+    <>
       {songs.map((song, idx) => {
         return (
           <SongItem
@@ -97,7 +96,7 @@ const SongList = () => {
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

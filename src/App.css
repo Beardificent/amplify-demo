@@ -1,62 +1,13 @@
-@import "@aws-amplify/ui-react/styles.css";
-
+html,
+body,
+#root,
 .App {
-  text-align: center;
-  padding: 12px;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-.App-logo {
-  height: 10vmin;
-  pointer-events: none;
+.MuiContainer-root {
+  width: 100vw;
+  padding-left: 0;
+  padding-right: 0;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 5vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.appContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  justify-content: center;
-  padding: 16px;
-}
-
-.songList {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.songCard {
-  display: flex;
-  justify-content: space-around;
-  padding: 5px;
-  width: 100%;
-}
-/* FIXME*/
-.Button {
-  border-radius: 8px;
-  text-align: center;
-  justify-content: center;
-  background-color: yellow;
-}
-
-svg {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-

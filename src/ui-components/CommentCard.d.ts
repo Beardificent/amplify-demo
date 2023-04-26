@@ -6,14 +6,13 @@
 
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
-import { MyIconProps } from "./MyIcon";
-import { FlexProps, ImageProps, TextProps } from "@aws-amplify/ui-react";
+import { FlexProps, ImageProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CommentCardOverridesProps = {
     CommentCard?: PrimitiveOverrideProps<FlexProps>;
     Liked?: PrimitiveOverrideProps<FlexProps>;
     "User Liked"?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon29766875?: MyIconProps;
+    MyIcon29766875?: PrimitiveOverrideProps<ViewProps>;
     "Danny liked this"?: PrimitiveOverrideProps<TextProps>;
     Body?: PrimitiveOverrideProps<FlexProps>;
     image?: PrimitiveOverrideProps<ImageProps>;
@@ -24,19 +23,19 @@ export declare type CommentCardOverridesProps = {
     Timestamp?: PrimitiveOverrideProps<TextProps>;
     "Lorem ipsum"?: PrimitiveOverrideProps<TextProps>;
     Frame29766885?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon29766886?: MyIconProps;
+    MyIcon29766886?: PrimitiveOverrideProps<ViewProps>;
     "\u201CLorem ipsum dolor sit amet, consectetur adipiscing elit. \u201D"?: PrimitiveOverrideProps<TextProps>;
     Share29766888?: PrimitiveOverrideProps<FlexProps>;
     Share29766889?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon29766890?: MyIconProps;
+    MyIcon29766890?: PrimitiveOverrideProps<ViewProps>;
     "9929766891"?: PrimitiveOverrideProps<TextProps>;
     Repost?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon29766893?: MyIconProps;
+    MyIcon29766893?: PrimitiveOverrideProps<ViewProps>;
     "9929766894"?: PrimitiveOverrideProps<TextProps>;
     Like?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon29766896?: MyIconProps;
+    MyIcon29766896?: PrimitiveOverrideProps<ViewProps>;
     "9929766897"?: PrimitiveOverrideProps<TextProps>;
-    MyIcon29766898?: MyIconProps;
+    MyIcon29766898?: PrimitiveOverrideProps<ViewProps>;
 } & EscapeHatchProps;
 export declare type CommentCardProps = React.PropsWithChildren<Partial<FlexProps> & {
     overrides?: CommentCardOverridesProps | undefined | null;

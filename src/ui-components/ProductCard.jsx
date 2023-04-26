@@ -17,7 +17,6 @@ import {
   Text,
   View,
 } from "@aws-amplify/ui-react";
-import MyIcon from "./MyIcon";
 export default function ProductCard(props) {
   const { overrides, ...rest } = props;
   return (
@@ -202,20 +201,11 @@ export default function ProductCard(props) {
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "Quote")}
         >
-          <MyIcon
+          <View
             width="24px"
             height="24px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            overflow="hidden"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            type="chat"
             {...getOverrideProps(overrides, "MyIcon")}
-          ></MyIcon>
+          ></View>
           <Text
             fontFamily="Inter"
             fontSize="16px"

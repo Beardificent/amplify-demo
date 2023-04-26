@@ -7,8 +7,7 @@
 /* eslint-disable */
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Flex, Image, Text } from "@aws-amplify/ui-react";
-import MyIcon from "./MyIcon";
+import { Flex, Image, Text, View } from "@aws-amplify/ui-react";
 export default function SocialPost(props) {
   const { overrides, ...rest } = props;
   return (
@@ -162,20 +161,11 @@ export default function SocialPost(props) {
             padding="0px 0px 0px 0px"
             {...getOverrideProps(overrides, "Article")}
           >
-            <MyIcon
+            <View
               width="24px"
               height="24px"
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              overflow="hidden"
-              shrink="0"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              type="arrow-right"
               {...getOverrideProps(overrides, "MyIcon29766860")}
-            ></MyIcon>
+            ></View>
             <Text
               fontFamily="Inter"
               fontSize="16px"
@@ -237,48 +227,21 @@ export default function SocialPost(props) {
               children="Share"
               {...getOverrideProps(overrides, "Share29766863")}
             ></Text>
-            <MyIcon
+            <View
               width="24px"
               height="24px"
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              overflow="hidden"
-              shrink="0"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              type="bookmark_border"
               {...getOverrideProps(overrides, "MyIcon29766864")}
-            ></MyIcon>
-            <MyIcon
+            ></View>
+            <View
               width="24px"
               height="24px"
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              overflow="hidden"
-              shrink="0"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              type="share"
               {...getOverrideProps(overrides, "MyIcon29766865")}
-            ></MyIcon>
-            <MyIcon
+            ></View>
+            <View
               width="24px"
               height="24px"
-              display="block"
-              gap="unset"
-              alignItems="unset"
-              justifyContent="unset"
-              overflow="hidden"
-              shrink="0"
-              position="relative"
-              padding="0px 0px 0px 0px"
-              type="more_vert"
               {...getOverrideProps(overrides, "MyIcon29766866")}
-            ></MyIcon>
+            ></View>
           </Flex>
         </Flex>
         <Image
@@ -309,20 +272,11 @@ export default function SocialPost(props) {
         padding="0px 0px 0px 0px"
         {...getOverrideProps(overrides, "Read more29766868")}
       >
-        <MyIcon
+        <View
           width="24px"
           height="24px"
-          display="block"
-          gap="unset"
-          alignItems="unset"
-          justifyContent="unset"
-          overflow="hidden"
-          shrink="0"
-          position="relative"
-          padding="0px 0px 0px 0px"
-          type="arrow-right"
           {...getOverrideProps(overrides, "MyIcon29766869")}
-        ></MyIcon>
+        ></View>
         <Text
           fontFamily="Inter"
           fontSize="16px"

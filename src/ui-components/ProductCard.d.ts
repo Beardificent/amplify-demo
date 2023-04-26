@@ -7,7 +7,6 @@
 import * as React from "react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { BadgeProps, DividerProps, FlexProps, IconProps, ImageProps, RatingProps, TextProps, ViewProps } from "@aws-amplify/ui-react";
-import { MyIconProps } from "./MyIcon";
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProductCardOverridesProps = {
     "72"?: PrimitiveOverrideProps<TextProps>;
@@ -23,7 +22,7 @@ export declare type ProductCardOverridesProps = {
     Badge29766806?: PrimitiveOverrideProps<BadgeProps>;
     "Information about this product."?: PrimitiveOverrideProps<TextProps>;
     Quote?: PrimitiveOverrideProps<FlexProps>;
-    MyIcon?: MyIconProps;
+    MyIcon?: PrimitiveOverrideProps<ViewProps>;
     "\u201CThis is a quote.\u201C"?: PrimitiveOverrideProps<TextProps>;
     Divider?: PrimitiveOverrideProps<DividerProps>;
     Features?: PrimitiveOverrideProps<FlexProps>;

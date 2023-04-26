@@ -8,7 +8,6 @@
 import * as React from "react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Divider, Flex, Icon, Image, Text, View } from "@aws-amplify/ui-react";
-import MyIcon from "./MyIcon";
 export default function Ampligram(props) {
   const { overrides, ...rest } = props;
   return (
@@ -178,48 +177,21 @@ export default function Ampligram(props) {
           padding="0px 0px 0px 0px"
           {...getOverrideProps(overrides, "Share")}
         >
-          <MyIcon
+          <View
             width="24px"
             height="24px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            overflow="hidden"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            type="favorite_border"
             {...getOverrideProps(overrides, "MyIcon29766772")}
-          ></MyIcon>
-          <MyIcon
+          ></View>
+          <View
             width="24px"
             height="24px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            overflow="hidden"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            type="chat-bubble-outline"
             {...getOverrideProps(overrides, "MyIcon29766773")}
-          ></MyIcon>
-          <MyIcon
+          ></View>
+          <View
             width="24px"
             height="24px"
-            display="block"
-            gap="unset"
-            alignItems="unset"
-            justifyContent="unset"
-            overflow="hidden"
-            shrink="0"
-            position="relative"
-            padding="0px 0px 0px 0px"
-            type="send"
             {...getOverrideProps(overrides, "MyIcon29766774")}
-          ></MyIcon>
+          ></View>
         </Flex>
         <Flex
           gap="10px"

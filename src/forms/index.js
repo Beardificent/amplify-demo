@@ -1,3 +1,4 @@
 import AddSongForm from "./AddSongForm";
+import UpdateNameEmailForm from "./UpdateNameEmailForm";
 
-export {AddSongForm}
+export { AddSongForm, UpdateNameEmailForm };

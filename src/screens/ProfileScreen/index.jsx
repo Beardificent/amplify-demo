@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { AccountSettings } from "@aws-amplify/ui-react";
-import { Auth, API } from "aws-amplify";
+import { AccountSettings, Grid, Card, Button } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Storage } from "aws-amplify";
 import awsconfig from "../../aws-exports";
+import { Avatar } from "@mui/material";
+import { Formik, Form } from "formik";
+import { UpdateNameEmailForm } from "../../forms";
 
 Storage.configure(awsconfig);
 
-const ProfileContainer = styled.div`
+const ProfileContainer = styled(Card)`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 32px;
   border: 1px solid #ccc;
   border-radius: 4px;
-`;
-
-const ProfileAvatar = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #ccc;
-  border-radius: 50%;
-  margin-bottom: 16px;
 `;
 
 const ProfileName = styled.h2`
@@ -34,9 +29,30 @@ const ProfileEmail = styled.p`
   font-size: 18px;
 `;
 
-const BackButton = styled.button`
+const BorderWrapper = styled(Card)`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+const BackButton = styled(Button)`
   margin-top: 16px;
 `;
+
+const ChangePassword = styled(AccountSettings.ChangePassword)`
+  border-radius: 8px;
+  width: 100%;
+`;
+
+const StyledHeader = styled(Card)``;
+
+const ProfileTypo = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+`;
+const Statistics = styled(Card)`
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
 const ProfileScreen = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -71,6 +87,7 @@ const ProfileScreen = () => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    Formik.setFieldValues("email", event.currentTarget.value);
   };
 
   const handleSave = async () => {
@@ -96,8 +113,13 @@ const ProfileScreen = () => {
     }
   };
 
-  console.log("hello");
-  console.log(files);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear().toString();
+    return `${day}/${month}/${year}`;
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -120,50 +142,97 @@ const ProfileScreen = () => {
     fetchUserData();
   }, []);
 
+  const getUserAvatar = (name) => {
+    const getInitials = (name) => {
+      return name
+        .split(" ")
+        .map((word) => word[0])
+        .join("");
+    };
+
+    const initials = getInitials(name);
+    const color = name.charAt(0).toLowerCase().charCodeAt(0) - 97; // get a number between 0-25 based on first letter
+
+    return (
+      <Avatar style={{fontSize: "56px", height: "120px", width: "120px", backgroundColor: `hsl(${color * 15}, 70%, 50%)` }}>
+        {initials}
+      </Avatar>
+    );
+  };
+
   return (
-    <ProfileContainer>
-      <div>
-        <h2>Profile</h2>
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" value={name} onChange={handleNameChange} />
-        <br />
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        <br />
-        <button onClick={handleSave}>Save</button>
+    <Grid
+      columnGap="0.5rem"
+      rowGap="0.5rem"
+      templateColumns="1fr 1fr 4fr"
+      templateRows="1fr 1fr"
+    >
+      <StyledHeader columnStart="1" columnEnd="-1">
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <ProfileTypo>Profile</ProfileTypo>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "100%",
+            }}
+          >
+            <BackButton onClick={handleGoBack}>Go back</BackButton>
+          </div>
+        </div>
+        <div style={{ display: "flex", alignItems: 'center', gap: "12px" }}>
+          <div> {user && getUserAvatar(user.attributes.name)}</div>
+          {user && (
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+              <ProfileName>{user.attributes.name}</ProfileName>
+              <ProfileEmail>{user.attributes.email}</ProfileEmail>
+            </div>
+          )}
+        </div>
+      </StyledHeader>
+      <Statistics columnStart="1" columnEnd="2">
+        <Formik onSubmit={handleSave}>
+          <Form
+            id="update-name-email-form"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <UpdateNameEmailForm
+              nameValue={name}
+              emailValue={email}
+              handleChangeName={handleNameChange}
+              handleChangeEmail={handleEmailChange}
+            />
+
+            <Button type="submit" variant="contained">
+              Save
+            </Button>
+          </Form>
+        </Formik>
         <h3>Files uploaded to S3:</h3>
         <p>Number of files: {files.length}</p>
         <ul>
           {files.map((file) => (
             <li key={file.key}>
-              {file.key}{" "}
+              <>{file.key}</>
+              <>{formatDate(file.lastModified)}</>
               <button onClick={() => handleDeleteFile(file.key)}>Delete</button>
             </li>
           ))}
         </ul>
-      </div>
-      <ProfileAvatar />
-      {user && (
-        <>
-          <ProfileName>{user.attributes.name}</ProfileName>
-          <ProfileEmail>{user.attributes.email}</ProfileEmail>
-        </>
-      )}
-      <div style={{ backgroundColor: "white" }}>
-        <AccountSettings.ChangePassword
-          onSuccess={(oldPassword, newPassword) =>
-            handlePasswordChange(oldPassword, newPassword)
-          }
-        />
+      </Statistics>
+      <ProfileContainer columnStart="2" columnEnd="3">
+        <div style={{ backgroundColor: "white", width: "500px" }}>
+          <ChangePassword
+            onSuccess={(oldPassword, newPassword) =>
+              handlePasswordChange(oldPassword, newPassword)
+            }
+          />
+        </div>
+      </ProfileContainer>
+      <BorderWrapper columnStart="1" columnEnd="2" rowStart={"3"} rowEnd={"3"}>
         <AccountSettings.DeleteUser onSuccess={handleDelete} />
-        <BackButton onClick={handleGoBack}>Go back</BackButton>
-      </div>
-    </ProfileContainer>
+      </BorderWrapper>
+    </Grid>
   );
 };
 

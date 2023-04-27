@@ -24,8 +24,10 @@ const AddSongForm = ({ onUpload, onCancel }) => {
   const uploadSong = async () => {
     console.log("songData", songData);
     const { title, description, owner } = songData;
+    const metadata = { title, description, owner };
     const { key } = await Storage.put(`${uuid()}.mp3`, mp3Data, {
       contentType: "audio/mp3",
+      metadata,
     });
     const createSongInput = {
       id: uuid(),
